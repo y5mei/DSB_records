@@ -1,3 +1,5 @@
+from time import sleep
+
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
@@ -370,6 +372,7 @@ def main():
 
             print("\n[完成] 程序执行结束")
         finally:
+            sleep(10)
             driver.quit()
     else:
         print("\n[错误] 登录失败，程序终止")
