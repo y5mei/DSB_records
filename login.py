@@ -149,12 +149,17 @@ def setup_driver():
 
     try:
 
-        # service = Service(ChromeDriverManager().install())
-        base_dir = getattr(sys, '_MEIPASS', os.path.abspath(os.path.dirname(__file__)))
-        chromedriver_path = os.path.join(base_dir, 'chromedriver.exe')
-        print("chromedriver path is: ", chromedriver_path)
-        service = Service(chromedriver_path)
+        service = Service(ChromeDriverManager().install())
+        if not service:
+            raise Exception("无法安装 chrome driver!")
+        print("============ 成功下载了 chrome driver: ", service.path)
         driver = webdriver.Chrome(service=service, options=chrome_options)
+
+        # base_dir = getattr(sys, '_MEIPASS', os.path.abspath(os.path.dirname(__file__)))
+        # chromedriver_path = os.path.join(base_dir, 'chromedriver.exe')
+        # print("chromedriver path is: ", chromedriver_path)
+        # service = Service(chromedriver_path)
+        # driver = webdriver.Chrome(service=service, options=chrome_options)
         # 执行 JavaScript 来隐藏自动化特征
         driver.execute_cdp_cmd('Network.setUserAgentOverride', {
             "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36" if
@@ -286,12 +291,14 @@ def login_to_dsb(username, password):
         continue_button.click()
 
         # 等待登录成功
-        print("等待登录成功...")
-        WebDriverWait(driver, 10).until(
-            EC.presence_of_element_located((By.ID, "logged-user"))
-        )
-
-        print("登录成功！")
+        try:
+            print("等待登录成功...")
+            WebDriverWait(driver, 10).until(
+                EC.presence_of_element_located((By.ID, "logged-user"))
+            )
+            print("登录成功！")
+        except Exception:
+            raise Exception("登录失败，很可能是用户名密码错误， 请检查 .env 文件内容")
 
         # 等待更长时间以确保所有认证信息都已设置
         time.sleep(5)
