@@ -21,7 +21,7 @@ python -m venv .venvdsb
 # Note that you might need to use different command based on your python version
 # See: https://docs.python.org/3.11/library/venv.html#how-venvs-work
 # You can abort this virtual environment by type `deactivate` in your powershell terminal at any time.
-.\.venvdsb\bin\Activate.ps1
+.\.venvdsb\Scripts\Activate.ps1
 
 # Step-3 Upgrade pip and install dependencies
 python.exe -m pip install --upgrade pip

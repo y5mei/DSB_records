@@ -1,0 +1,9 @@
+DSB_USERNAME=foo@gmail.com
+DSB_PASSWORD=bar
+# Set this falg value to true or flase to make chromedriver headless or not.
+DSB_HEADLESS=false
+# You can comment out the line below (or just delete it), then the python script will use OS default download path.
+DSB_DOWNLOAD_DIR=H:\Records
+# If you set the flag below (in yyyymmdd format), the script will try to download files for that day.
+# You can also comment out the line below (or just delete it), the python script will use (current date -1) by default.
+DSB_DOWNLOAD_DATE=20250104
